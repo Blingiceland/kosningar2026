@@ -64,8 +64,8 @@ function App() {
               </header>
               <div className="ideas-grid" style={{ marginBottom: '3rem' }}>
                 <div className="glass-card" style={{ borderTop: '4px solid var(--primary)' }}>
-                  <h3><MessageSquare size={20} style={{ display: 'inline', marginRight: '0.5rem', color: 'var(--primary)' }}/> Spurðu okkur og við munum svara</h3>
-                  <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem', marginBottom: '1rem' }}>Viltu spyrja okkur að einhverju - gerðu það hér og eitthvert okkar svarar þér.</p>
+                  <h3><MessageSquare size={20} style={{ display: 'inline', marginRight: '0.5rem', color: 'var(--primary)' }}/> Okkar Svör</h3>
+                  <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem', marginBottom: '1rem' }}>Spurðu okkur og við munum svara....</p>
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
                     <textarea className="form-control" placeholder="Hver er þín spurning?" rows="3"></textarea>
                     <button className="submit-btn" style={{ padding: '0.75rem', fontSize: '1rem' }}>Senda Spurningu</button>
