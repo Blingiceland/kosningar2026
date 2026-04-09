@@ -188,9 +188,9 @@ export default function StefnaSida() {
         }}>
           STEFNA VIÐREISNAR Í GARÐABÆ
         </div>
-        <h1>Við viljum gera Garðabæ að<br />enn betri bæ</h1>
+        <h1>Okkar helstu Stefnumál</h1>
         <p style={{ color: 'var(--text-muted)', maxWidth: '600px', margin: '1rem auto 0' }}>
-          Sex málaflokkar. Ein framtíðarsýn. Smelltu á hvern flokk til að kynnast stefnunni okkar nánar.
+          en við erum opin fyrir öllum góðum hugmyndum
         </p>
       </motion.div>
 
