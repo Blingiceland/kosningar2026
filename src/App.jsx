@@ -47,7 +47,7 @@ function App() {
           <BookOpen size={18} /> Stefnan okkar
         </button>
         <button id="tab-spurningar" className={`tab-btn ${publicTab === 'spurningar' ? 'active' : ''}`} onClick={() => setPublicTab('spurningar')}>
-          <MessageSquare size={18} /> Okkar Svör
+          <MessageSquare size={18} /> Spurt og Svarað
         </button>
       </div>
 
@@ -64,8 +64,8 @@ function App() {
               </header>
               <div className="ideas-grid" style={{ marginBottom: '3rem' }}>
                 <div className="glass-card" style={{ borderTop: '4px solid var(--primary)' }}>
-                  <h3><MessageSquare size={20} style={{ display: 'inline', marginRight: '0.5rem', color: 'var(--primary)' }}/> Okkar Svör</h3>
-                  <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem', marginBottom: '1rem' }}>Spurðu okkur og við munum svara....</p>
+                  <h3><MessageSquare size={20} style={{ display: 'inline', marginRight: '0.5rem', color: 'var(--primary)' }}/> Spurðu og þér verður svarað</h3>
+                  <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem', marginBottom: '1rem' }}>Viltu spyrja okkur að einhverju - gerðu það hér og eitthvert okkar svarar þér.</p>
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
                     <textarea className="form-control" placeholder="Hver er þín spurning?" rows="3"></textarea>
                     <button className="submit-btn" style={{ padding: '0.75rem', fontSize: '1rem' }}>Senda Spurningu</button>
@@ -188,7 +188,7 @@ function App() {
           <motion.div key="spurningar" initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 20 }} transition={{ duration: 0.35 }}>
             <div style={{ maxWidth: '800px', margin: '0 auto' }}>
               <div className="glass-card">
-                <h2 style={{ marginBottom: '1.5rem', borderBottom: '1px solid var(--border-color)', paddingBottom: '1rem' }}>Okkar Svör</h2>
+                <h2 style={{ marginBottom: '1.5rem', borderBottom: '1px solid var(--border-color)', paddingBottom: '1rem' }}>Spurt og Svarað</h2>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
                   {questions.length === 0 ? (
                     <div style={{ textAlign: 'center', padding: '3rem 1rem', color: 'var(--text-muted)' }}>

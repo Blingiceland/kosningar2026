@@ -232,14 +232,7 @@ export default function StefnaSida() {
                     <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>{fl.subTitle}</p>
                   </div>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-                    <div style={{
-                      background: fl.colorBg, color: fl.color,
-                      padding: '0.35rem 0.8rem', borderRadius: '1rem',
-                      fontSize: '0.85rem', fontWeight: '600',
-                      display: 'flex', alignItems: 'center', gap: '0.4rem'
-                    }}>
-                      <ThumbsUp size={13} /> {likes[fl.id]}
-                    </div>
+
                     <div style={{ color: 'var(--text-muted)' }}>
                       {erOpinn ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
                     </div>
@@ -322,22 +315,7 @@ export default function StefnaSida() {
 
                         {/* Aðgerðahnappar */}
                         <div style={{ display: 'flex', gap: '0.75rem', marginTop: '1.5rem', flexWrap: 'wrap' }}>
-                          <button
-                            onClick={() => handleLike(fl.id)}
-                            style={{
-                              display: 'flex', alignItems: 'center', gap: '0.5rem',
-                              background: erLikað ? fl.color : 'transparent',
-                              border: `1px solid ${fl.color}`,
-                              color: erLikað ? 'white' : fl.color,
-                              padding: '0.6rem 1.2rem', borderRadius: '2rem',
-                              cursor: erLikað ? 'default' : 'pointer',
-                              fontSize: '0.9rem', fontWeight: '600',
-                              transition: 'all 0.25s ease',
-                            }}
-                          >
-                            <ThumbsUp size={15} />
-                            {erLikað ? 'Þú styður þetta!' : 'Ég styð þetta mál'}
-                          </button>
+
                           <button
                             onClick={() => handleShare(fl.title, fl.id)}
                             style={{
