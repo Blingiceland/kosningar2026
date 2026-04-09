@@ -65,7 +65,7 @@ function App() {
               <div className="ideas-grid" style={{ marginBottom: '3rem' }}>
                 <div className="glass-card" style={{ borderTop: '4px solid var(--primary)' }}>
                   <h3><MessageSquare size={20} style={{ display: 'inline', marginRight: '0.5rem', color: 'var(--primary)' }}/> Spyrðu Viðreisn</h3>
-                  <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem', marginBottom: '1rem' }}>Ertu með brennandi spurningu á listann? Spyrðu hér og einhver úr okkar röðum mun svara.</p>
+                  <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem', marginBottom: '1rem' }}>Viltu spyrja okkur að einhverju - gerðu það hér og eitthvert okkar svarar þér.</p>
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
                     <textarea className="form-control" placeholder="Hver er þín spurning?" rows="3"></textarea>
                     <button className="submit-btn" style={{ padding: '0.75rem', fontSize: '1rem' }}>Senda Spurningu</button>
@@ -73,7 +73,7 @@ function App() {
                 </div>
                 <div className="glass-card" style={{ borderTop: '4px solid var(--secondary)' }}>
                   <h3><BookOpen size={20} style={{ display: 'inline', marginRight: '0.5rem', color: 'var(--secondary)' }}/> Skoðaðu Stefnuna</h3>
-                  <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem', marginBottom: '1rem' }}>Við höfum 5 málaflokka — frá skólamálum til GA-GA í Garðabæ. Kynntu þér hvernig við ætlum að gera bæinn betri!</p>
+                  <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem', marginBottom: '1rem' }}>Kynntu þér okkar helstu stefnumál og hvernig við ætlum að gera Garðabæ að enn betri bæ.</p>
                   <button className="submit-btn" style={{ background: 'var(--gradient-secondary)' }} onClick={() => setPublicTab('stefna')}>
                     📖 Lesa Stefnuna
                   </button>
