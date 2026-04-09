@@ -1,3 +1,29 @@
+// Viðreisn Garðabær - Frambjóðendur 2026
+export const candidates = [
+  { seat: 1, name: 'Guðlaugur Kristmundsson', role: 'Bæjarf. og fyrrv. framkv.stjóri', bio: 'Stutt kynning á Guðlaugi hér. Frábært rými fyrir helstu áherslur og kosningaloforð í komandi kosningum.', featured: true, gradient: 'var(--gradient-primary)', image: '/1.png' },
+  { seat: 2, name: 'Harpa Þorsteinsdóttir', role: 'Lýðheilsufræðingur og varabæjarf.', bio: 'Hér verður pláss fyrir fínan kynningartexta um Hörpu, og helstu málin hennar.', featured: true, gradient: 'var(--gradient-primary)', image: '/2.png' },
+  { seat: 3, name: 'Jón Bjarni Steinsson', role: 'Lögfræðingur og viðburðahaldari', bio: 'Helstu áherslumál Jóns og baráttumál verða sett hérna inn.', featured: true, gradient: 'var(--gradient-primary)', image: '/3.png' },
+  { seat: 4, name: 'Sigríður Þóra Ásgeirsdóttir', role: 'Frumkvöðull og framkv.stjóri', bio: 'Frumkvöðlakrafturinn hennar Sigríðar verður gerður upp hérna.', featured: true, gradient: 'var(--gradient-primary)', image: '/4.png' },
+  { seat: 5, name: 'Hreiðar Þór Jónsson', role: 'Framkvæmdastjóri', bio: 'Kynningartextinn fyrir Hreiðar fer beint inn í þetta pláss.', featured: true, gradient: 'var(--gradient-primary)', image: '/5.png' },
+  { seat: 6, name: 'Tamar Klara Lipka Þormarsdóttir', role: 'Lögfræðingur', bio: 'Stutt kynning um frambjóðanda. Hér er pláss fyrir texta sem lýsir störfum og áherslum.', midTier: true },
+  { seat: 7, name: 'Júlíus Arnarson', role: 'Framkvæmdastjóri', bio: 'Stutt kynning um frambjóðanda. Hér er pláss fyrir texta sem lýsir störfum og áherslum.', midTier: true },
+  { seat: 8, name: 'Þyrí Halla Steingrímsdóttir', role: 'Lögfræðingur', bio: 'Stutt kynning um frambjóðanda. Hér er pláss fyrir texta sem lýsir störfum og áherslum.', midTier: true },
+  { seat: 9, name: 'Árni Björn Eiríksson', role: 'Viðskiptafræðingur', bio: 'Stutt kynning um frambjóðanda. Hér er pláss fyrir texta sem lýsir störfum og áherslum.', midTier: true },
+  { seat: 10, name: 'Herdís Anna Ingimarsdóttir', role: 'Verkefnastjóri og markþjálfi', bio: 'Stutt kynning um frambjóðanda. Hér er pláss fyrir texta sem lýsir störfum og áherslum.', midTier: true },
+  { seat: 11, name: 'Hafsteinn Ezekíel Hafsteinsson', role: 'Sölustjóri', gradient: 'linear-gradient(135deg, #6D7073, #53575A)' },
+  { seat: 12, name: 'Geirþrúður Alfreðsdóttir', role: 'Verkfræðingur', gradient: 'linear-gradient(135deg, #FD7D26, #FBB03B)' },
+  { seat: 13, name: 'Jens Guðjón Einarsson', role: 'Fyrrv. kennari og framkv.stjóri', gradient: 'linear-gradient(135deg, #53575A, #6D7073)' },
+  { seat: 14, name: 'Maria Rosario Blöndal', role: 'Markaðsstjóri', gradient: 'linear-gradient(135deg, #FCC55F, #FBB03B)' },
+  { seat: 15, name: 'Viðar Kristinsson', role: 'Þjónustustjóri', gradient: 'linear-gradient(135deg, #E09A25, #FBB03B)' },
+  { seat: 16, name: 'Tinna Borg Arnfinnsdóttir', role: 'Innri endurskoðandi', gradient: 'linear-gradient(135deg, #6D7073, #53575A)' },
+  { seat: 17, name: 'Eyþór Eðvarðsson', role: 'Stjórnendaþjálfari og ráðgjafi', gradient: 'linear-gradient(135deg, #FD7D26, #FBB03B)' },
+  { seat: 18, name: 'Ásta Sigríður Guðjónsdóttir', role: 'Sr. mark. og samskiptamálum', gradient: 'linear-gradient(135deg, #53575A, #6D7073)' },
+  { seat: 19, name: 'Ingi Þór Hermannsson', role: 'Fyrrv. formaður Odda', gradient: 'linear-gradient(135deg, #FCC55F, #FBB03B)' },
+  { seat: 20, name: 'Heiðrún Sigurðardóttir', role: 'Viðskiptafræðingur', gradient: 'linear-gradient(135deg, #E09A25, #FBB03B)' },
+  { seat: 21, name: 'Eiríkur Björn Björgvinsson', role: 'Alþingism. og fyrrum bæjarstj.', gradient: 'linear-gradient(135deg, #6D7073, #53575A)' },
+  { seat: 22, name: 'Sara Dögg Svanhildardóttir', role: 'Fyrrv. bæjarfullrúi', gradient: 'linear-gradient(135deg, #FD7D26, #FBB03B)' },
+];
+
 export const ideaCategories = [
   {
     id: "aldradir",
