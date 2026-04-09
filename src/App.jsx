@@ -38,7 +38,7 @@ function App() {
       {/* Public nav tabs */}
       <div className="tabs">
         <button id="tab-heim" className={`tab-btn ${publicTab === 'heim' ? 'active' : ''}`} onClick={() => setPublicTab('heim')}>
-          <Globe size={18} /> Heimasíða
+          <Globe size={18} /> Heim
         </button>
         <button id="tab-frambjodendur" className={`tab-btn ${publicTab === 'frambjodendur' ? 'active' : ''}`} onClick={() => setPublicTab('frambjodendur')}>
           <Users size={18} /> Frambjóðendur
