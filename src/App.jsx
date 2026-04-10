@@ -9,7 +9,7 @@ import { ideaCategories, candidates } from './data';
 import StefnaSida from './components/StefnaSida';
 import { db, auth, googleProvider } from './firebase';
 import {
-  collection, addDoc, query, where, orderBy,
+  collection, addDoc, query, where,
   onSnapshot, doc, updateDoc, serverTimestamp
 } from 'firebase/firestore';
 import { signInWithPopup, signOut, onAuthStateChanged } from 'firebase/auth';
@@ -58,11 +58,13 @@ function App() {
   useEffect(() => {
     const q = query(
       collection(db, 'questions'),
-      where('status', '==', 'approved'),
-      orderBy('createdAt', 'desc')
+      where('status', '==', 'approved')
     );
     const unsub = onSnapshot(q, (snap) => {
-      setApprovedQuestions(snap.docs.map(d => ({ id: d.id, ...d.data() })));
+      const sorted = snap.docs
+        .map(d => ({ id: d.id, ...d.data() }))
+        .sort((a, b) => (b.createdAt?.seconds || 0) - (a.createdAt?.seconds || 0));
+      setApprovedQuestions(sorted);
     });
     return () => unsub();
   }, []);
@@ -72,14 +74,16 @@ function App() {
     if (!isAdmin) return;
     const q = query(
       collection(db, 'questions'),
-      where('status', '==', 'pending'),
-      orderBy('createdAt', 'desc')
+      where('status', '==', 'pending')
     );
     const unsub = onSnapshot(q, (snap) => {
-      setPendingQuestions(snap.docs.map(d => ({ id: d.id, ...d.data() })));
+      const sorted = snap.docs
+        .map(d => ({ id: d.id, ...d.data() }))
+        .sort((a, b) => (b.createdAt?.seconds || 0) - (a.createdAt?.seconds || 0));
+      setPendingQuestions(sorted);
     });
     return () => unsub();
-  }, [user]);
+  }, [isAdmin]);
 
   // ── Sign in / out ──
   const handleSignIn = async () => {
