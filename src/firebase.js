@@ -1,16 +1,17 @@
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
+import { getAuth, GoogleAuthProvider } from "firebase/auth";
 
-// TODO: Settu inn þínar Firebase stillingar hér þegar þú stofnar nýtt verkefni á console.firebase.google.com
 const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "YOUR_AUTH_DOMAIN",
-  projectId: "YOUR_PROJECT_ID",
-  storageBucket: "YOUR_STORAGE_BUCKET",
-  messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-  appId: "YOUR_APP_ID"
+  apiKey: "AIzaSyCYSAJp0r2UH63v7GHfDbJvavs6HaSeYIE",
+  authDomain: "vidreisn-gardabaer.firebaseapp.com",
+  projectId: "vidreisn-gardabaer",
+  storageBucket: "vidreisn-gardabaer.firebasestorage.app",
+  messagingSenderId: "793366722605",
+  appId: "1:793366722605:web:388126b14c6349ea6e60a4"
 };
 
-// Initialize Firebase
 const app = initializeApp(firebaseConfig);
 export const db = getFirestore(app);
+export const auth = getAuth(app);
+export const googleProvider = new GoogleAuthProvider();
