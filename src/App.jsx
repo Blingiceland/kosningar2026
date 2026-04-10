@@ -3,10 +3,11 @@ import { motion, AnimatePresence } from 'framer-motion';
 import {
   Activity, MessageSquare, Users, BarChart3, Edit3,
   Lock, Globe, ThumbsUp, BookOpen, LogIn, LogOut,
-  CheckCircle2, XCircle, Clock, Send, User
+  CheckCircle2, XCircle, Clock, Send, User, Newspaper, Trash2, PlusCircle
 } from 'lucide-react';
 import { ideaCategories, candidates } from './data';
 import StefnaSida from './components/StefnaSida';
+import FrettirSida from './components/FrettirSida';
 import { db, auth, googleProvider } from './firebase';
 import {
   collection, addDoc, query, where,
@@ -39,6 +40,15 @@ function App() {
   const [pendingQuestions, setPendingQuestions] = useState([]);
   const [answers, setAnswers] = useState({});
   const [processing, setProcessing] = useState({});
+
+  // ── Fréttir — Admin form ──
+  const [newTitle, setNewTitle] = useState('');
+  const [newExcerpt, setNewExcerpt] = useState('');
+  const [newUrl, setNewUrl] = useState('');
+  const [newImageUrl, setNewImageUrl] = useState('');
+  const [newSource, setNewSource] = useState('');
+  const [addingNews, setAddingNews] = useState(false);
+  const [newsList, setNewsList] = useState([]);
 
   const totalIdeas = ideaCategories.reduce((acc, cat) => acc + cat.ideas.length, 0);
 
@@ -84,6 +94,19 @@ function App() {
     });
     return () => unsub();
   }, [isAdmin]);
+
+  // ── Fetch news list — admin only (real-time) ──
+  useEffect(() => {
+    if (!isAdmin) return;
+    const unsub = onSnapshot(collection(db, 'news'), (snap) => {
+      const sorted = snap.docs
+        .map(d => ({ id: d.id, ...d.data() }))
+        .sort((a, b) => (b.createdAt?.seconds || 0) - (a.createdAt?.seconds || 0));
+      setNewsList(sorted);
+    });
+    return () => unsub();
+  }, [isAdmin]);
+
 
   // ── Sign in / out ──
   const handleSignIn = async () => {
@@ -161,6 +184,35 @@ function App() {
     setProcessing(p => ({ ...p, [id]: false }));
   };
 
+  // ── Admin: bæta við frétt ──
+  const handleAddNews = async () => {
+    if (!newTitle.trim() || !newUrl.trim()) return;
+    setAddingNews(true);
+    try {
+      await addDoc(collection(db, 'news'), {
+        title: newTitle.trim(),
+        excerpt: newExcerpt.trim(),
+        url: newUrl.trim(),
+        imageUrl: newImageUrl.trim() || null,
+        source: newSource.trim() || null,
+        published: true,
+        createdAt: serverTimestamp(),
+      });
+      setNewTitle(''); setNewExcerpt(''); setNewUrl('');
+      setNewImageUrl(''); setNewSource('');
+    } catch (e) { console.error(e); }
+    setAddingNews(false);
+  };
+
+  // ── Admin: eyða frétt ──
+  const handleDeleteNews = async (id) => {
+    if (!window.confirm('Eyða þessari grein?')) return;
+    try {
+      const { deleteDoc, doc: fsDoc } = await import('firebase/firestore');
+      await deleteDoc(fsDoc(db, 'news', id));
+    } catch (e) { console.error(e); }
+  };
+
   const scrollTo = (id) =>
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
 
@@ -182,6 +234,9 @@ function App() {
         </button>
         <button id="tab-spurningar" className="tab-btn" onClick={() => scrollTo('section-spurningar')}>
           <MessageSquare size={18} /> Spurt og Svarað
+        </button>
+        <button id="tab-frettir" className="tab-btn" onClick={() => scrollTo('section-frettir')}>
+          <Newspaper size={18} /> Fréttir
         </button>
       </div>
 
@@ -382,6 +437,11 @@ function App() {
           </div>
         </div>
       </section>
+
+      {/* ── FRÉTTIR ── */}
+      <section id="section-frettir" style={{ scrollMarginTop: '5rem', paddingBottom: '6rem', background: 'var(--light)', borderRadius: '2rem', padding: '4rem 1.5rem' }}>
+        <FrettirSida />
+      </section>
     </div>
   );
 
@@ -420,6 +480,9 @@ function App() {
               {pendingQuestions.length}
             </span>
           )}
+        </button>
+        <button className={`tab-btn ${activeTab === 'frettir' ? 'active' : ''}`} onClick={() => setActiveTab('frettir')}>
+          <Newspaper size={18} style={{ display: 'inline', marginRight: '0.5rem' }} />Fréttir
         </button>
         <button className={`tab-btn ${activeTab === 'manifesto' ? 'active' : ''}`} onClick={() => setActiveTab('manifesto')}>
           <Edit3 size={18} style={{ display: 'inline', marginRight: '0.5rem' }} />Stefnumótun
@@ -534,6 +597,62 @@ function App() {
                   </motion.div>
                 ))
               )}
+            </div>
+          </motion.div>
+        )}
+
+        {/* FRÉTTIR ADMIN */}
+        {activeTab === 'frettir' && (
+          <motion.div key="frettir" initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 20 }} transition={{ duration: 0.4 }}>
+            <div style={{ maxWidth: '760px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+
+              {/* Bæta við gréin */}
+              <div className="glass-card" style={{ borderTop: '4px solid var(--primary)' }}>
+                <h3 style={{ marginBottom: '1.25rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                  <PlusCircle size={20} color="var(--primary)" /> Bæta við gréin
+                </h3>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+                  <input className="form-control" placeholder="Titill greinar *" value={newTitle} onChange={e => setNewTitle(e.target.value)} />
+                  <input className="form-control" placeholder="Heimild (t.d. mbl.is, visir.is)" value={newSource} onChange={e => setNewSource(e.target.value)} />
+                  <textarea className="form-control" rows="2" placeholder="Stutt lýsing / útdráttur" value={newExcerpt} onChange={e => setNewExcerpt(e.target.value)} />
+                  <input className="form-control" type="url" placeholder="Tengill á greinina (URL) *" value={newUrl} onChange={e => setNewUrl(e.target.value)} />
+                  <input className="form-control" type="url" placeholder="Mynd-URL (valfrjálst)" value={newImageUrl} onChange={e => setNewImageUrl(e.target.value)} />
+                  <button
+                    className="submit-btn"
+                    onClick={handleAddNews}
+                    disabled={addingNews || !newTitle.trim() || !newUrl.trim()}
+                    style={{ padding: '0.75rem' }}
+                  >
+                    {addingNews ? 'Vista...' : <><PlusCircle size={16} /> Birta gréin</>}
+                  </button>
+                </div>
+              </div>
+
+              {/* Listi yfir birtar greinar */}
+              <div className="glass-card">
+                <h3 style={{ marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                  <Newspaper size={20} color="var(--primary)" /> Birtar greinar ({newsList.length})
+                </h3>
+                {newsList.length === 0 ? (
+                  <p style={{ color: 'var(--text-muted)', textAlign: 'center', padding: '2rem' }}>Engar greinar enn</p>
+                ) : (
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+                    {newsList.map(n => (
+                      <div key={n.id} style={{ display: 'flex', alignItems: 'center', gap: '1rem', padding: '0.75rem', background: 'var(--light)', borderRadius: '0.75rem' }}>
+                        {n.imageUrl && <img src={n.imageUrl} alt="" style={{ width: 60, height: 44, objectFit: 'cover', borderRadius: '0.5rem', flexShrink: 0 }} />}
+                        <div style={{ flex: 1, minWidth: 0 }}>
+                          <div style={{ fontWeight: 700, color: 'var(--dark-800)', fontSize: '0.95rem', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{n.title}</div>
+                          {n.source && <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>{n.source}</div>}
+                        </div>
+                        <a href={n.url} target="_blank" rel="noopener noreferrer" style={{ color: 'var(--primary-dark)', fontSize: '0.8rem', flexShrink: 0 }}>Opna</a>
+                        <button onClick={() => handleDeleteNews(n.id)} style={{ background: 'transparent', border: 'none', cursor: 'pointer', color: 'var(--text-muted)', flexShrink: 0, padding: '0.25rem' }}>
+                          <Trash2 size={16} />
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
             </div>
           </motion.div>
         )}
